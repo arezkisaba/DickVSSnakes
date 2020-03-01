@@ -80,7 +80,7 @@ $('body').live('youLoseEvent', function () {
     popupState = PopupState.YOULOSE;
     self.setTimeout(function () {
         $.colorbox({
-            href: 'ajax/popupYouLose.html',
+            href: 'popups/popupYouLose.html',
             close: '',
             onComplete: function () {
                 $('#popupYouLose').focus();
@@ -93,7 +93,7 @@ $('body').live('youWonEvent', function () {
     popupState = PopupState.YOUWON;
     self.setTimeout(function () {
         $.colorbox({
-            href: 'ajax/popupYouWon.html',
+            href: 'popups/popupYouWon.html',
             close: '',
             onComplete: function () {
                 $('#popupYouWon').focus();
@@ -106,7 +106,7 @@ $('body').live('endOfGameEvent', function () {
     popupState = PopupState.ENDOFGAME;
     self.setTimeout(function () {
         $.colorbox({
-            href: 'ajax/popupEndOfGame.html',
+            href: 'popups/popupEndOfGame.html',
             close: '',
             onComplete: function () {
                 $('#popupEndOfGame').focus();

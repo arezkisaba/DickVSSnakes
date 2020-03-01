@@ -34,3 +34,4 @@ C:\Users\asaba\source\Workspaces\DickVSSnakes\DickVSSnakes\DickVSSnakes\obj\Debu
 C:\Users\asaba\source\Workspaces\DickVSSnakes\DickVSSnakes\DickVSSnakes\obj\Debug\netcoreapp3.0\DickVSSnakes.dll
 C:\Users\asaba\source\Workspaces\DickVSSnakes\DickVSSnakes\DickVSSnakes\obj\Debug\netcoreapp3.0\DickVSSnakes.pdb
 C:\Users\asaba\source\Workspaces\DickVSSnakes\DickVSSnakes\DickVSSnakes\obj\Debug\netcoreapp3.0\DickVSSnakes.csproj.CopyComplete
+C:\Users\asaba\source\Workspaces\DickVSSnakes\DickVSSnakes\DickVSSnakes\obj\Debug\netcoreapp3.0\DickVSSnakes.csprojAssemblyReference.cache

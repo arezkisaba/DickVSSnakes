@@ -8,6 +8,9 @@
     <None Include="wwwroot\level\level-1.txt" />
     <None Include="wwwroot\level\level-2.txt" />
     <None Include="wwwroot\level\level-3.txt" />
+    <None Include="wwwroot\popups\popupEndOfGame.html" />
+    <None Include="wwwroot\popups\popupYouLose.html" />
+    <None Include="wwwroot\popups\popupYouWon.html" />
   </ItemGroup>
 
   <ItemGroup>
