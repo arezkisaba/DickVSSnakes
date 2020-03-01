@@ -33,5 +33,11 @@ namespace DickVSSnakes.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        
+        [HttpGet("gamelevelcount")]
+        public async Task<int> GetGameLevelCountAsync()
+        {
+            return 3;
+        }
     }
 }

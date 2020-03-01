@@ -122,7 +122,7 @@ function getCurrentPlayer() {
     for (var i = 0; i < arrayMain.length; i++) {
         var player = arrayMain[i];
         if (player instanceof Player) {
-            if (player.name === $('#playerList').attr('value')) {
+            if (player.name === $("#playerList").val()) {
                 return player;
             }
         }
@@ -133,7 +133,7 @@ function getCurrentPlayer() {
 
 function loadLevel(level) {
     $.ajax({
-        url: 'ajax/countLevel.php'
+        url: 'gamelevelcount'
     }).done(function (data) {
         levelCount = parseInt(data);
     });
