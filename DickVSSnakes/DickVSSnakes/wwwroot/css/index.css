@@ -1,0 +1,64 @@
+body {
+    margin:0 auto 0 auto;
+}
+canvas {
+    display:block;
+    margin: 0 auto 0 auto;
+}
+#canvasContainer {
+    display:block;
+    margin:20px auto 0 auto;
+    padding-top:35px;
+    width:1000px;
+    height:600px;
+}
+#stat {
+    position: absolute;
+    margin: 5px 0px 0px 5px;
+    background: #C1E8BA;
+    border-radius: 5px 5px 5px 5px;
+    opacity: 0.5;
+    width:990px;
+}
+#stat table {
+    width:100%;
+}
+#stat #chrono img, #stat #chrono span {
+    vertical-align: middle;
+    font-size: 20px;
+}
+#stat #countBonusLife img, #stat #countBonusLife span {
+    vertical-align: middle;
+    font-size: 20px;
+}
+#stat #countBonusStar img, #stat #countBonusStar span {
+    vertical-align: middle;
+    font-size: 20px;
+}
+#stat #countMalusSnakeBlack img, #stat #countMalusSnakeBlack span {
+    vertical-align: middle;
+    font-size: 20px;
+}
+#stat #countMalusSnakeRed img, #stat #countMalusSnakeRed span {
+    vertical-align: middle;
+    font-size: 20px;
+}
+#stat #countMalusSnakeGreen img, #stat #countMalusSnakeGreen span {
+    vertical-align: middle;
+    font-size: 20px;
+}
+#popupYouLose {
+	width: 400px;
+	height: 200px;
+	background: url(../img/screen/popupYouLose.png);
+}
+#popupYouWon {
+	width: 400px;
+	height: 200px;
+	background: url(../img/screen/popupYouWon.png);
+}
+#popupEndOfGame {
+	width: 400px;
+	height: 200px;
+	background: url(../img/screen/popupEndOfGame.png);
+}

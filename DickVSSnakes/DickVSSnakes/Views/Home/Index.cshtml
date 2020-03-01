@@ -1,8 +1,109 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Dick VS Snakes</title>
+    <script type='text/javascript'>
+        // VARIABLES
+    </script>
+    <link href='/css/index.css' rel='stylesheet' type='text/css' media='screen' />
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src='/lib/jquery/jquery.js'></script>
+    <script src='/lib/jquery.colorbox/jquery.colorbox.js'></script>
+    <script src='/js/game.js'></script>
+    <script src='/js/Chrono.js'></script>
+    <script src='/js/Enum.js'></script>
+    <script src='/js/Point.js'></script>
+    <script src='/js/Shape.js'></script>
+    <script src='/js/bonus/BonusLife.js'></script>
+    <script src='/js/bonus/BonusStar.js'></script>
+    <script src='/js/player/Player.js'></script>
+    <script src='/js/deco/DecoSea.js'></script>
+    <script src='/js/malus/MalusSnakeBlack.js'></script>
+    <script src='/js/malus/MalusSnakeRed.js'></script>
+    <script src='/js/malus/MalusSnakeGreen.js'></script>
+    <script src='/js/obstacle/ObstacleBox.js'></script>
+    <script src='/js/obstacle/ObstacleGround.js'></script>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <script type="text/javascript">
+
+        // Classe abstraite
+        function myAbstractClass() {
+        };
+        myAbstractClass.prototype.virtualFunction = function () {
+            return "Je suis la méthode virtuelle";
+        };
+
+        // Classe héritée SANS surcharge
+        function myInheritedClass1() {
+            myAbstractClass.call(this);
+        }
+        myInheritedClass1.prototype = new myAbstractClass;
+
+        // Classe héritée AVEC surcharge
+        function myInheritedClass2() {
+            myAbstractClass.call(this);
+        }
+        myInheritedClass2.prototype = new myAbstractClass;
+        myInheritedClass2.prototype.virtualFunction = function () {
+            return "Je suis la méthode surchargée";
+        };
+
+        // Instanciation #1
+        var myObject1 = new myInheritedClass1();
+        console.log(myObject1.virtualFunction());
+
+        // Instanciation #2
+        var myObject2 = new myInheritedClass2();
+        console.log(myObject2.virtualFunction());
+
+    </script>
+</head>
+<body>
+    <select id='playerList'>
+    </select>
+    <div id='canvasContainer'>
+        <div id='stat'>
+            <table>
+                <tr>
+                    <td>
+                        <span style='float:left;'>
+                            <span id='chrono'>
+                                <img src='img/menubar/chronoNormal.png' alt='' width='30' height='30' />
+                                <span>0.000</span>
+                            </span>
+                        </span>
+                    </td>
+                    <td>
+                        <span style='float:right;'>
+                            <span id='countBonusLife'>
+                                <img src='img/menubar/bonusLifeNormal.png' alt='' width='30' height='30' />
+                                <span>10</span>
+                            </span>
+                            <span id='countBonusStar'>
+                                <img src='img/menubar/bonusStarNormal.png' alt='' width='30' height='30' />
+                                <span>x 0</span>
+                            </span>
+                            <span id='countMalusSnakeBlack'>
+                                <img src='img/menubar/malusSnakeBlackNormal.png' alt='' width='30' height='30' />
+                                <span>x 0</span>
+                            </span>
+                            <span id='countMalusSnakeRed'>
+                                <img src='img/menubar/malusSnakeRedNormal.png' alt='' width='30' height='30' />
+                                <span>x 0</span>
+                            </span>
+                            <span id='countMalusSnakeGreen'>
+                                <img src='img/menubar/malusSnakeGreenNormal.png' alt='' width='30' height='30' />
+                                <span>x 0</span>
+                            </span>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <canvas id='canvasGame' width='1000' height='600'>
+        </canvas>
+    </div>
+</body>
+</html>

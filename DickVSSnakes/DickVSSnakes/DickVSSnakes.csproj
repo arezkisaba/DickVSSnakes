@@ -1,11 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
-
   <ItemGroup>
+    <None Include="wwwroot\level\level-1.txt" />
+    <None Include="wwwroot\level\level-2.txt" />
+    <None Include="wwwroot\level\level-3.txt" />
   </ItemGroup>
 
 </Project>
