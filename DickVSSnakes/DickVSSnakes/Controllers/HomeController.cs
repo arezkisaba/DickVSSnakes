@@ -37,7 +37,7 @@ namespace DickVSSnakes.Controllers
         [HttpGet("gamelevelcount")]
         public async Task<int> GetGameLevelCountAsync()
         {
-            return 3;
+            return System.IO.Directory.GetFiles(@"wwwroot/level").Count();
         }
     }
 }
