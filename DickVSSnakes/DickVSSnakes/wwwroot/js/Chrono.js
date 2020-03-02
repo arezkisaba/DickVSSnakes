@@ -1,3 +1,5 @@
+'use strict';
+
 function Chrono(x, y) {
 }
 Chrono.updateCount = function () {

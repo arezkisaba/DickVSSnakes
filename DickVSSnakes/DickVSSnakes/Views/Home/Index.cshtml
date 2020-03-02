@@ -8,7 +8,7 @@
     <meta charset='utf-8'>
     <title>Dick VS Snakes</title>
     <script type='text/javascript'>
-        // VARIABLES
+                                                // VARIABLES
     </script>
     <link href='/css/index.css' rel='stylesheet' type='text/css' media='screen' />
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
@@ -19,7 +19,7 @@
     <script src='/js/Chrono.js'></script>
     <script src='/js/Enum.js'></script>
     <script src='/js/Point.js'></script>
-    <script src='/js/Shape.js'></script>
+    <script src='~/js/abstract/Shape.js'></script>
     <script src='/js/bonus/BonusLife.js'></script>
     <script src='/js/bonus/BonusStar.js'></script>
     <script src='/js/player/Player.js'></script>
@@ -29,38 +29,13 @@
     <script src='/js/malus/MalusSnakeGreen.js'></script>
     <script src='/js/obstacle/ObstacleBox.js'></script>
     <script src='/js/obstacle/ObstacleGround.js'></script>
+    <script src='/js/helpers/TopbarHelper.js'></script>
+    <script src='/js/_tests/object.js'></script>
+    @*<script src='/js/_tests/scope.js'></script>
+        <script src='/js/_tests/strictMode.js'></script>
+        <script src='/js/_tests/this.js'></script>*@
 
     <script type="text/javascript">
-
-        // Classe abstraite
-        function myAbstractClass() {
-        };
-        myAbstractClass.prototype.virtualFunction = function () {
-            return "Je suis la méthode virtuelle";
-        };
-
-        // Classe héritée SANS surcharge
-        function myInheritedClass1() {
-            myAbstractClass.call(this);
-        }
-        myInheritedClass1.prototype = new myAbstractClass;
-
-        // Classe héritée AVEC surcharge
-        function myInheritedClass2() {
-            myAbstractClass.call(this);
-        }
-        myInheritedClass2.prototype = new myAbstractClass;
-        myInheritedClass2.prototype.virtualFunction = function () {
-            return "Je suis la méthode surchargée";
-        };
-
-        // Instanciation #1
-        var myObject1 = new myInheritedClass1();
-        console.log(myObject1.virtualFunction());
-
-        // Instanciation #2
-        var myObject2 = new myInheritedClass2();
-        console.log(myObject2.virtualFunction());
 
     </script>
 </head>

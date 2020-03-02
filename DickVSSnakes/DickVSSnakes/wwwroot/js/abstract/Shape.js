@@ -1,3 +1,5 @@
+'use strict';
+
 function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
     this.imgLeft = new Image();
     this.imgLeft.src = imgPathLeft;

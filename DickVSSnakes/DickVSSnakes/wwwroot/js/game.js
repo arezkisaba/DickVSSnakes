@@ -6,11 +6,6 @@ var canvas = undefined;
 var context = undefined;
 var intervalMain = undefined;
 var intervalChrono = undefined;
-var intervalAnimCountBonusLife = undefined;
-var intervalAnimCountBonusStar = undefined;
-var intervalAnimCountMalusSnakeBlack = undefined;
-var intervalAnimCountMalusSnakeRed = undefined;
-var intervalAnimCountMalusSnakeGreen = undefined;
 var popupState = undefined;
 var countBonusLife = 10;
 var countBonusStar = undefined;
@@ -180,16 +175,6 @@ function loadLevel(level) {
                 }
             }
 
-            BonusLife.animCount();
-            BonusLife.updateCount();
-            BonusStar.animCount();
-            BonusStar.updateCount();
-            MalusSnakeBlack.animCount();
-            MalusSnakeBlack.updateCount();
-            MalusSnakeRed.animCount();
-            MalusSnakeRed.updateCount();
-            MalusSnakeGreen.animCount();
-            MalusSnakeGreen.updateCount();
             Chrono.updateCount();
             clearInterval(intervalMain);
             intervalMain = self.setInterval('intervalMainProc()', fps);
@@ -212,21 +197,21 @@ function intervalMainProc() {
 
     context.drawImage(background, 0, 0, 1000, 600);
 
+    TopbarHelper.updateCountBonusLife();
+    TopbarHelper.updateCountBonusStar();
+    TopbarHelper.updateCountMalusSnakeBlack();
+    TopbarHelper.updateCountMalusSnakeRed();
+    TopbarHelper.updateCountMalusSnakeGreen();
+
     BonusLife.update();
     BonusStar.update();
-    DecoSea.update();
     MalusSnakeBlack.update();
     MalusSnakeRed.update();
     MalusSnakeGreen.update();
+    DecoSea.update();
     ObstacleBox.update();
     ObstacleGround.update();
     Player.update();
-
-    BonusLife.updateCount();
-    BonusStar.updateCount();
-    MalusSnakeBlack.updateCount();
-    MalusSnakeRed.updateCount();
-    MalusSnakeGreen.updateCount();
 }
 
 function intervalChronoProc() {
