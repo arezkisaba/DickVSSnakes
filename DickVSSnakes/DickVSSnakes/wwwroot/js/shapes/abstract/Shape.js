@@ -11,10 +11,6 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
     this.y = y;
     this.width = width;
     this.height = height;
-    this.corner1 = new Point(this.x, this.y);
-    this.corner2 = new Point(this.x + this.width, this.y);
-    this.corner3 = new Point(this.x, this.y + this.height);
-    this.corner4 = new Point(this.x + this.width, this.y + this.height);
     this.isFacingLeft = false;
     this.isFacingRight = true;
     this.isMovingLeft = false;
@@ -24,9 +20,9 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
     this.isWalking = true;
     this.jumpStep = 15;
     this.direction = 0;
-
     this.currentSpriteIndex = 0;
     this.sprites = new Array(1);
+
     for (let i = 0; i < this.sprites.length; i++) {
         this.sprites[i] = i * 50;
     }
@@ -40,15 +36,15 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
     };
 
     this.setJumping = function () {
-        this.isWalking = false;
         this.isMovingUp = true;
         this.isMovingDown = false;
+        this.isWalking = false;
     };
 
     this.setWalking = function () {
-        this.isWalking = true;
         this.isMovingUp = false;
         this.isMovingDown = false;
+        this.isWalking = true;
     };
 
     this.setX = function (x) {
@@ -59,6 +55,7 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
             this.isFacingLeft = true;
             this.isFacingRight = false;
         }
+
         this.x = x;
         this.updateCoordinates();
     };
@@ -69,13 +66,7 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
     };
 
     this.getCollideSide = function (shape) {
-        var matchX = false;
-        var matchY = false;
-
-        if ((this.corner2.x < shape.corner1.x)
-            || (this.corner1.x > shape.corner2.x)
-            || (this.corner3.y < shape.corner1.y)
-            || (this.corner1.y > shape.corner3.y)) {
+        if (this.corner2.x < shape.corner1.x || this.corner1.x > shape.corner2.x || this.corner3.y < shape.corner1.y || this.corner1.y > shape.corner3.y) {
             return Direction.NONE;
         } else {
             var flags;
@@ -87,8 +78,7 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
                         }
                     }
                 }
-            }
-            if (this.corner2.x >= shape.corner1.x && this.corner1.x < shape.corner1.x) {
+            } else if (this.corner2.x >= shape.corner1.x && this.corner1.x < shape.corner1.x) {
                 for (let i = this.corner1.y; i < this.corner3.y; i++) {
                     for (let j = shape.corner1.y; j < shape.corner3.y; j++) {
                         if (i === j) {
@@ -97,6 +87,7 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
                     }
                 }
             }
+
             if (this.corner1.y <= shape.corner3.y && this.corner3.y > shape.corner3.y) {
                 for (let i = this.corner1.x; i < this.corner2.x; i++) {
                     for (let j = shape.corner1.x; j < shape.corner2.x; j++) {
@@ -105,8 +96,7 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
                         }
                     }
                 }
-            }
-            if (this.corner3.y >= shape.corner1.y && this.corner1.y < shape.corner1.y) {
+            } else if (this.corner3.y >= shape.corner1.y && this.corner1.y < shape.corner1.y) {
                 for (let i = this.corner1.x; i < this.corner2.x; i++) {
                     for (let j = shape.corner1.x; j < shape.corner2.x; j++) {
                         if (i === j) {
@@ -115,6 +105,7 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
                     }
                 }
             }
+
             return flags;
         }
     };
@@ -125,17 +116,19 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
         this.corner3 = new Point(this.x, this.y + this.height);
         this.corner4 = new Point(this.x + this.width, this.y + this.height);
     };
+
+    this.updateCoordinates();
 }
 
 Shape.prototype.drawImage = function () {
     if (this.isMovingRight) {
-        context.drawImage(this.imgRight, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
+        $context.drawImage(this.imgRight, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
         this.currentSpriteIndex++;
         if (this.currentSpriteIndex === this.sprites.length) {
             this.currentSpriteIndex = 0;
         }
     } else if (this.isMovingLeft) {
-        context.drawImage(this.imgLeft, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
+        $context.drawImage(this.imgLeft, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
         this.currentSpriteIndex++;
         if (this.currentSpriteIndex === this.sprites.length) {
             this.currentSpriteIndex = 0;
@@ -143,10 +136,9 @@ Shape.prototype.drawImage = function () {
     } else {
         this.currentSpriteIndex = 0;
         if (this.isFacingLeft) {
-            context.drawImage(this.imgLeft, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
-        }
-        if (this.isFacingRight) {
-            context.drawImage(this.imgRight, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
+            $context.drawImage(this.imgLeft, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
+        } else if (this.isFacingRight) {
+            $context.drawImage(this.imgRight, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
         }
     }
 };

@@ -12,12 +12,12 @@ ChronoHelper.updateCount = function () {
 
 ChronoHelper.animCount = function () {
     if (initialTime > 0) {
-        if ($('#stat #chrono img').attr('src') === 'img/menubar/chronoNormal.png') {
-            $('#stat #chrono img').attr('src', 'img/menubar/chronoActive.png');
+        if ($('#stat #chrono img').attr('src') === 'img/topbar/chronoNormal.png') {
+            $('#stat #chrono img').attr('src', 'img/topbar/chronoActive.png');
         } else {
-            $('#stat #chrono img').attr('src', 'img/menubar/chronoNormal.png');
+            $('#stat #chrono img').attr('src', 'img/topbar/chronoNormal.png');
         }
     } else {
-        $('#stat #chrono img').attr('src', 'img/menubar/chronoNormal.png');
+        $('#stat #chrono img').attr('src', 'img/topbar/chronoNormal.png');
     }
 };

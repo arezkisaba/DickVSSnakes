@@ -14,10 +14,10 @@ TopbarHelper.animCountBonusLife = function () {
     clearInterval(intervalAnimCountBonusLife);
     intervalAnimCountBonusLife = self.setInterval(function () {
         counter += 1;
-        if ($('#stat #countBonusLife img').attr('src') === 'img/menubar/bonusLifeNormal.png') {
-            $('#stat #countBonusLife img').attr('src', 'img/menubar/bonusLifeActive.png');
+        if ($('#stat #countBonusLife img').attr('src') === 'img/topbar/bonusLifeNormal.png') {
+            $('#stat #countBonusLife img').attr('src', 'img/topbar/bonusLifeActive.png');
         } else {
-            $('#stat #countBonusLife img').attr('src', 'img/menubar/bonusLifeNormal.png');
+            $('#stat #countBonusLife img').attr('src', 'img/topbar/bonusLifeNormal.png');
         }
 
         if (counter === 4) {

@@ -1,9 +1,8 @@
 'use strict';
 
-function Player(i, y, name) {
-    Shape.call(this, 'img/player/playerLeft.png', 'img/player/playerRight.png', i, y, 60, 50);
+function Player(i, y) {
+    Shape.call(this, 'img/shapes/player/playerLeft.png', 'img/shapes/player/playerRight.png', i, y, 60, 50);
 
-    this.name = name;
     this.currentSpriteFrameIndex = 0;
     this.sprites = new Array(9);
     for (let i = 0; i < this.sprites.length; i++) {
@@ -39,33 +38,26 @@ Player.prototype.update = function () {
             } else if (shape instanceof BonusMalus) {
                 shape.unDraw();
                 countBonusLife += shape.getLifeImpactAmount();
+                TopbarHelper.updateCountBonusLife();
                 TopbarHelper.animCountBonusLife();
             } else if (shape instanceof ObstacleGround || shape instanceof ObstacleBox) {
-                if (collideSide & Direction.LEFT) {
-                    if (this.isMovingLeft) {
-                        this.isMovingLeft = false;
-                    }
+                if (collideSide & Direction.LEFT && this.isMovingLeft) {
+                    this.isMovingLeft = false;
                 }
 
-                if (collideSide & Direction.RIGHT) {
-                    if (this.isMovingRight) {
-                        this.isMovingRight = false;
-                    }
+                if (collideSide & Direction.RIGHT && this.isMovingRight) {
+                    this.isMovingRight = false;
                 }
 
-                if (collideSide & Direction.TOP) {
-                    if (this.isMovingUp && !this.isMovingDown) {
-                        this.setY(shape.y + shape.height);
-                        this.jumpStep = -1;
-                        this.setJumping();
-                    }
+                if (collideSide & Direction.TOP && this.isMovingUp && !this.isMovingDown) {
+                    this.setY(shape.y + shape.height);
+                    this.jumpStep = -1;
+                    this.setJumping();
                 }
 
-                if (collideSide & Direction.BOTTOM) {
-                    if (!this.isMovingUp && this.isMovingDown) {
-                        this.setY(shape.y - this.height);
-                        this.setWalking();
-                    }
+                if (collideSide & Direction.BOTTOM && !this.isMovingUp && this.isMovingDown) {
+                    this.setY(shape.y - this.height);
+                    this.setWalking();
                 }
 
                 if (this.isWalking) {
@@ -79,10 +71,6 @@ Player.prototype.update = function () {
     }
 
     var coef = 10;
-    ////if (this.isMovingUp || this.isMovingDown) {
-    ////    coef = 5;
-    ////}
-
     if (this.isMovingRight && this.corner2.x < 1000) {
         this.setX(this.x + coef);
     } else if (this.isMovingLeft && this.corner1.x > 0) {

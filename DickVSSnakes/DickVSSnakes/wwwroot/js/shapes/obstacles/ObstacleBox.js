@@ -1,7 +1,7 @@
 'use strict';
 
 function ObstacleBox(x, y) {
-    Shape.call(this, 'img/obstacle/obstacleBox.png', 'img/obstacle/obstacleBox.png', x, y, 50, 50);
+    Shape.call(this, 'img/shapes/obstacle/obstacleBox.png', 'img/shapes/obstacle/obstacleBox.png', x, y, 50, 50);
 }
 
 ObstacleBox.prototype = Object.create(Shape.prototype);

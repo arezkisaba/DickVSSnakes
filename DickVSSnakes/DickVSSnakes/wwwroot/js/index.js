@@ -1,9 +1,7 @@
 'use strict';
 
-var levelUrl = undefined;
-var levelCount = undefined;
-var canvas = undefined;
-var context = undefined;
+var $canvas = undefined;
+var $context = undefined;
 var intervalMain = undefined;
 var intervalChrono = undefined;
 var popupState = undefined;
@@ -12,12 +10,16 @@ var countStar = undefined;
 var currentLevel = 1;
 var initialTime = undefined;
 var gravity = undefined;
-var fps = undefined;
+var fps = 30;
 var loop = undefined;
 var background = undefined;
 var arrayMain = undefined;
 
 $(document).ready(function () {
+    background = new Image();
+    background.src = 'img/background/background-01.png';
+    $canvas = $('#canvasGame');
+    $context = $canvas[0].getContext('2d');
     loadLevel(currentLevel);
 });
 
@@ -125,52 +127,63 @@ function loadLevel(level) {
     $.ajax({
         url: 'gamelevelcount'
     }).done(function (data) {
-        levelCount = parseInt(data);
-    });
-
-    if (level > levelCount) {
-        $('body').trigger('endOfGameEvent');
-    } else {
-        levelUrl = 'level/level-' + level + '.txt';
-        canvas = document.getElementById('canvasGame');
-        context = canvas.getContext('2d');
-        countBonusLife = 10;
-        countStar = 0;
-        initialTime = 0;
-        gravity = 1;
-        fps = 30;
-        loop = true;
-        background = new Image();
-        background.src = 'img/background/background-01.png';
-        arrayMain = new Array();
-        $.ajax({
-            url: levelUrl
-        }).done(function (data) {
-            var rows = data.split('\r\n');
-            for (var rowIndex = 0; rowIndex < rows.length; rowIndex++) {
-                var row = rows[rowIndex];
-                var columns = row.split(' ');
-                for (var columnIndex = 0; columnIndex < columns.length; columnIndex++) {
-                    var column = columns[columnIndex];
-                    switch (column) {
-                        case 'CCT': arrayMain.push(new Player(50 * columnIndex, 50 * rowIndex, 'player' + columnIndex)); break;
-                        case 'BLI': arrayMain.push(new BonusLife(50 * columnIndex, 50 * rowIndex)); break;
-                        case 'BST': arrayMain.push(new Star(50 * columnIndex, 50 * rowIndex)); break;
-                        case 'DSE': arrayMain.push(new DecoSea(50 * columnIndex, 50 * rowIndex)); break;
-                        case 'MSB': arrayMain.push(new MalusSnakeBlack(50 * columnIndex, 50 * rowIndex)); break;
-                        case 'MSR': arrayMain.push(new MalusSnakeRed(50 * columnIndex, 50 * rowIndex)); break;
-                        case 'MSG': arrayMain.push(new MalusSnakeGreen(50 * columnIndex, 50 * rowIndex)); break;
-                        case 'OBO': arrayMain.push(new ObstacleBox(50 * columnIndex, 50 * rowIndex)); break;
-                        case 'OGR': arrayMain.push(new ObstacleGround(50 * columnIndex, 50 * rowIndex)); break;
-                        default: break;
+        if (level > parseInt(data)) {
+            $('body').trigger('endOfGameEvent');
+        } else {
+            countBonusLife = 10;
+            countStar = 0;
+            initialTime = 0;
+            gravity = 1;
+            loop = true;
+            arrayMain = new Array();
+            $.ajax({
+                url: 'level/level-' + level + '.txt'
+            }).done(function (data) {
+                var rows = data.split('\r\n');
+                for (var rowIndex = 0; rowIndex < rows.length; rowIndex++) {
+                    var row = rows[rowIndex];
+                    var columns = row.split(' ');
+                    for (var columnIndex = 0; columnIndex < columns.length; columnIndex++) {
+                        var column = columns[columnIndex];
+                        switch (column) {
+                            case 'CCT':
+                                arrayMain.push(new Player(50 * columnIndex, 50 * rowIndex));
+                                break;
+                            case 'BST':
+                                arrayMain.push(new Star(50 * columnIndex, 50 * rowIndex));
+                                break;
+                            case 'BLI':
+                                arrayMain.push(new BonusLife(50 * columnIndex, 50 * rowIndex));
+                                break;
+                            case 'DSE':
+                                arrayMain.push(new DecoSea(50 * columnIndex, 50 * rowIndex));
+                                break;
+                            case 'MSB':
+                                arrayMain.push(new MalusSnakeBlack(50 * columnIndex, 50 * rowIndex));
+                                break;
+                            case 'MSR':
+                                arrayMain.push(new MalusSnakeRed(50 * columnIndex, 50 * rowIndex));
+                                break;
+                            case 'MSG':
+                                arrayMain.push(new MalusSnakeGreen(50 * columnIndex, 50 * rowIndex));
+                                break;
+                            case 'OBO':
+                                arrayMain.push(new ObstacleBox(50 * columnIndex, 50 * rowIndex));
+                                break;
+                            case 'OGR':
+                                arrayMain.push(new ObstacleGround(50 * columnIndex, 50 * rowIndex));
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
-            }
 
-            clearInterval(intervalMain);
-            intervalMain = self.setInterval('intervalMainProc()', fps);
-        });
-    }
+                clearInterval(intervalMain);
+                intervalMain = self.setInterval('intervalMainProc()', fps);
+            });
+        }
+    });
 }
 
 function intervalMainProc() {
@@ -178,10 +191,7 @@ function intervalMainProc() {
         clearInterval(intervalMain);
     }
 
-    context.drawImage(background, 0, 0, 1000, 600);
-
-    TopbarHelper.updateCountBonusLife();
-
+    $context.drawImage(background, 0, 0, 1000, 600);
     for (let i = 0; i < arrayMain.length; i++) {
         var shape = arrayMain[i];
         shape.update();
