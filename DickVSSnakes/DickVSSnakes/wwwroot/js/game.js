@@ -45,17 +45,17 @@ $('body').live('keydown', function (e) {
         if (popupState === PopupState.ENDOFGAME) {
             $.colorbox.close();
         }
-    } else if ((keyCode === 37 || keyCode === 81) && player.isMovingRight === false && player.isMovingLeft === false) {
+    } else if ((keyCode === 37 || keyCode === 81) && !player.isMovingRight && !player.isMovingLeft) {
         player.isMovingLeft = true;
         canStart = true;
-    } else if ((keyCode === 39 || keyCode === 68) && player.isMovingLeft === false && player.isMovingRight === false) {
+    } else if ((keyCode === 39 || keyCode === 68) && !player.isMovingLeft && !player.isMovingRight) {
         player.isMovingRight = true;
         canStart = true;
-    } else if (keyCode === 32 && player.isMovingUp === false && player.isMovingDown === false) {
+    } else if (keyCode === 32 && !player.isMovingUp && !player.isMovingDown) {
         player.jumpStep = 14;
         player.setJumping();
         canStart = true;
-    } else if (initialTime === 0 && canStart === true) {
+    } else if (initialTime === 0 && canStart) {
         initialTime = new Number(new Date().getTime());
         intervalChrono = self.setInterval('intervalChronoProc()', 500);
     }
@@ -203,15 +203,10 @@ function intervalMainProc() {
     TopbarHelper.updateCountMalusSnakeRed();
     TopbarHelper.updateCountMalusSnakeGreen();
 
-    BonusLife.update();
-    BonusStar.update();
-    MalusSnakeBlack.update();
-    MalusSnakeRed.update();
-    MalusSnakeGreen.update();
-    DecoSea.update();
-    ObstacleBox.update();
-    ObstacleGround.update();
-    Player.update();
+    for (let i = 0; i < arrayMain.length; i++) {
+        var shape = arrayMain[i];
+        shape.update();
+    }
 }
 
 function intervalChronoProc() {

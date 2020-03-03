@@ -5,12 +5,3 @@ function ObstacleGround(x, y) {
 }
 
 ObstacleGround.prototype = Object.create(Shape.prototype);
-
-ObstacleGround.update = function () {
-    for (var i = 0; i < arrayMain.length; i++) {
-        var shape = arrayMain[i];
-        if (shape instanceof ObstacleGround) {
-            shape.draw();
-        }
-    }
-};

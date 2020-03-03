@@ -25,49 +25,18 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
     this.jumpStep = 15;
     this.direction = 0;
 
-    this.frameRunning = 0;
-    this.spriteRunning = new Array(1);
-    for (let i = 0; i < this.spriteRunning.length; i++) {
-        this.spriteRunning[i] = i * 50;
+    this.currentSpriteFrameIndex = 0;
+    this.sprites = new Array(1);
+    for (let i = 0; i < this.sprites.length; i++) {
+        this.sprites[i] = i * 50;
     }
-
-    this.draw = function () {
-        if (this.isMovingRight === true) {
-            context.drawImage(this.imgRight, this.spriteRunning[this.frameRunning], 0, 50, 50, this.x, this.y, 50, 50);
-            this.frameRunning++;
-            if (this.frameRunning === this.spriteRunning.length) {
-                this.frameRunning = 0;
-            }
-        } else if (this.isMovingLeft === true) {
-            context.drawImage(this.imgLeft, this.spriteRunning[this.frameRunning], 0, 50, 50, this.x, this.y, 50, 50);
-            this.frameRunning++;
-            if (this.frameRunning === this.spriteRunning.length) {
-                this.frameRunning = 0;
-            }
-        } else {
-            this.frameRunning = 0;
-            if (this.isFacingLeft === true) {
-                context.drawImage(this.imgLeft, this.spriteRunning[this.frameRunning], 0, 50, 50, this.x, this.y, 50, 50);
-            }
-            if (this.isFacingRight === true) {
-                context.drawImage(this.imgRight, this.spriteRunning[this.frameRunning], 0, 50, 50, this.x, this.y, 50, 50);
-            }
-        }
-    };
-
-    this.update = function () {
-        this.corner1 = new Point(this.x, this.y);
-        this.corner2 = new Point(this.x + this.width, this.y);
-        this.corner3 = new Point(this.x, this.y + this.height);
-        this.corner4 = new Point(this.x + this.width, this.y + this.height);
-    };
 
     this.unDraw = function () {
         this.imgLeft.src = '';
         this.imgRight.src = '';
         this.x = -100;
         this.y = -100;
-        this.update();
+        this.updateCoordinates();
     };
 
     this.setJumping = function () {
@@ -91,12 +60,12 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
             this.isFacingRight = false;
         }
         this.x = x;
-        this.update();
+        this.updateCoordinates();
     };
 
     this.setY = function (y) {
         this.y = y;
-        this.update();
+        this.updateCoordinates();
     };
 
     this.getCollideSide = function (shape) {
@@ -149,4 +118,39 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
             return flags;
         }
     };
+
+    this.updateCoordinates = function () {
+        this.corner1 = new Point(this.x, this.y);
+        this.corner2 = new Point(this.x + this.width, this.y);
+        this.corner3 = new Point(this.x, this.y + this.height);
+        this.corner4 = new Point(this.x + this.width, this.y + this.height);
+    };
 }
+
+Shape.prototype.draw = function () {
+    if (this.isMovingRight) {
+        context.drawImage(this.imgRight, this.sprites[this.currentSpriteFrameIndex], 0, 60, 50, this.x, this.y, 60, 50);
+        this.currentSpriteFrameIndex++;
+        if (this.currentSpriteFrameIndex === this.sprites.length) {
+            this.currentSpriteFrameIndex = 0;
+        }
+    } else if (this.isMovingLeft) {
+        context.drawImage(this.imgLeft, this.sprites[this.currentSpriteFrameIndex], 0, 60, 50, this.x, this.y, 60, 50);
+        this.currentSpriteFrameIndex++;
+        if (this.currentSpriteFrameIndex === this.sprites.length) {
+            this.currentSpriteFrameIndex = 0;
+        }
+    } else {
+        this.currentSpriteFrameIndex = 0;
+        if (this.isFacingLeft) {
+            context.drawImage(this.imgLeft, this.sprites[this.currentSpriteFrameIndex], 0, 60, 50, this.x, this.y, 60, 50);
+        }
+        if (this.isFacingRight) {
+            context.drawImage(this.imgRight, this.sprites[this.currentSpriteFrameIndex], 0, 60, 50, this.x, this.y, 60, 50);
+        }
+    }
+};
+
+Shape.prototype.update = function () {
+    this.draw();
+};

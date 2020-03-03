@@ -5,12 +5,3 @@ function BonusStar(x, y) {
 }
 
 BonusStar.prototype = Object.create(Shape.prototype);
-
-BonusStar.update = function () {
-    for (var i = 0; i < arrayMain.length; i++) {
-        var shape = arrayMain[i];
-        if (shape instanceof BonusStar) {
-            shape.draw();
-        }
-    }
-};

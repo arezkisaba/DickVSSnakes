@@ -5,12 +5,3 @@ function ObstacleBox(x, y) {
 }
 
 ObstacleBox.prototype = Object.create(Shape.prototype);
-
-ObstacleBox.update = function () {
-    for (var i = 0; i < arrayMain.length; i++) {
-        var shape = arrayMain[i];
-        if (shape instanceof ObstacleBox) {
-            shape.draw();
-        }
-    }
-};

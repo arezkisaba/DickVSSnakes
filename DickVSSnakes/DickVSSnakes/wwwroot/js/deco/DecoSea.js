@@ -5,12 +5,3 @@ function DecoSea(x, y) {
 }
 
 DecoSea.prototype = Object.create(Shape.prototype);
-
-DecoSea.update = function () {
-    for (var i = 0; i < arrayMain.length; i++) {
-        var shape = arrayMain[i];
-        if (shape instanceof DecoSea) {
-            shape.draw();
-        }
-    }
-};

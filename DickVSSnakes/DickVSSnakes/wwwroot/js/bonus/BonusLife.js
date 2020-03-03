@@ -5,12 +5,3 @@ function BonusLife(x, y) {
 }
 
 BonusLife.prototype = Object.create(Shape.prototype);
-
-BonusLife.update = function () {
-    for (var i = 0; i < arrayMain.length; i++) {
-        var shape = arrayMain[i];
-        if (shape instanceof BonusLife) {
-            shape.draw();
-        }
-    }
-};
