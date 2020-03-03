@@ -7,42 +7,60 @@
 
     <meta charset='utf-8'>
     <title>Dick VS Snakes</title>
-    <script type='text/javascript'>
-                                                        // VARIABLES
-    </script>
+
     <link href='/css/index.css' rel='stylesheet' type='text/css' media='screen' />
+
+    <!-- Libs -->
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
     <script src='/lib/jquery/jquery.js'></script>
     <script src='/lib/jquery.colorbox/jquery.colorbox.js'></script>
-    <script src='/js/game.js'></script>
-    <script src='/js/Chrono.js'></script>
-    <script src='/js/Enum.js'></script>
-    <script src='/js/Point.js'></script>
-    <script src='~/js/abstract/Shape.js'></script>
-    <script src='/js/bonus/BonusLife.js'></script>
-    <script src='/js/bonus/BonusStar.js'></script>
-    <script src='/js/player/Player.js'></script>
-    <script src='/js/deco/DecoSea.js'></script>
-    <script src='/js/malus/MalusSnake.js'></script>
-    <script src='/js/malus/MalusSnakeBlack.js'></script>
-    <script src='/js/malus/MalusSnakeRed.js'></script>
-    <script src='/js/malus/MalusSnakeGreen.js'></script>
-    <script src='/js/obstacle/ObstacleBox.js'></script>
-    <script src='/js/obstacle/ObstacleGround.js'></script>
+
+
+    <script src='/js/index.js'></script>
+
+    <!-- Enums -->
+    <script src='~/js/enums/Direction.js'></script>
+    <script src='~/js/enums/PopupState.js'></script>
+
+    <!-- Geometry -->
+    <script src='~/js/geometry/Point.js'></script>
+
+    <!-- Abstract -->
+    <script src='~/js/shapes/abstract/Shape.js'></script>
+
+    <!-- Deco -->
+    <script src='~/js/shapes/deco/DecoSea.js'></script>
+
+    <!-- Ephemeral -->
+    <script src='~/js/shapes/ephemeral/BonusMalus.js'></script>
+    <script src='~/js/shapes/ephemeral/Star.js'></script>
+    <script src='~/js/shapes/ephemeral/bonus/Bonus.js'></script>
+    <script src='~/js/shapes/ephemeral/bonus/BonusLife.js'></script>
+    <script src='~/js/shapes/ephemeral/malus/Malus.js'></script>
+    <script src='~/js/shapes/ephemeral/malus/MalusSnake.js'></script>
+    <script src='~/js/shapes/ephemeral/malus/MalusSnakeBlack.js'></script>
+    <script src='~/js/shapes/ephemeral/malus/MalusSnakeGreen.js'></script>
+    <script src='~/js/shapes/ephemeral/malus/MalusSnakeRed.js'></script>
+
+    <!-- Obstacles -->
+    <script src='~/js/shapes/obstacles/ObstacleBox.js'></script>
+    <script src='~/js/shapes/obstacles/ObstacleGround.js'></script>
+
+    <!-- Player -->
+    <script src='~/js/shapes/Player.js'></script>
+
+    <!-- Helpers -->
+    <script src='/js/helpers/ChronoHelper.js'></script>
     <script src='/js/helpers/TopbarHelper.js'></script>
-    <script src='/js/_tests/object.js'></script>
-    @*<script src='/js/_tests/scope.js'></script>
+
+    @*<script src='/js/_tests/object.js'></script>
+        <script src='/js/_tests/scope.js'></script>
         <script src='/js/_tests/strictMode.js'></script>
         <script src='/js/_tests/this.js'></script>*@
 
-    <script type="text/javascript">
-
-    </script>
 </head>
 <body>
-    <select id='playerList'>
-    </select>
     <div id='canvasContainer'>
         <div id='stat'>
             <table>
@@ -60,22 +78,6 @@
                             <span id='countBonusLife'>
                                 <img src='img/menubar/bonusLifeNormal.png' alt='' width='30' height='30' />
                                 <span>10</span>
-                            </span>
-                            <span id='countBonusStar'>
-                                <img src='img/menubar/bonusStarNormal.png' alt='' width='30' height='30' />
-                                <span>x 0</span>
-                            </span>
-                            <span id='countMalusSnakeBlack'>
-                                <img src='img/menubar/malusSnakeBlackNormal.png' alt='' width='30' height='30' />
-                                <span>x 0</span>
-                            </span>
-                            <span id='countMalusSnakeRed'>
-                                <img src='img/menubar/malusSnakeRedNormal.png' alt='' width='30' height='30' />
-                                <span>x 0</span>
-                            </span>
-                            <span id='countMalusSnakeGreen'>
-                                <img src='img/menubar/malusSnakeGreenNormal.png' alt='' width='30' height='30' />
-                                <span>x 0</span>
                             </span>
                         </span>
                     </td>

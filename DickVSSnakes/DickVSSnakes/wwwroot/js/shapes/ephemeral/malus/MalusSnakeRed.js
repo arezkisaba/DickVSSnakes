@@ -5,3 +5,7 @@ function MalusSnakeRed(x, y) {
 }
 
 MalusSnakeRed.prototype = Object.create(MalusSnake.prototype);
+
+MalusSnakeRed.prototype.getLifeImpactAmount = function () {
+    return -2;
+};

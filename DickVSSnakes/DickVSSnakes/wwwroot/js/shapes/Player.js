@@ -20,42 +20,25 @@ Player.prototype.update = function () {
         $('body').trigger('youLoseEvent');
         loop = false;
     }
-    ////if (countBonusStar === BonusStar.findAll().length) {
+    ////if (countStar === Star.findAll().length) {
     ////    $('body').trigger('youWonEvent');
     ////    loop = false;
     ////}
-    for (var j = 0; j < arrayMain.length; j++) {
-        var shape = arrayMain[j];
+
+    for (var i = 0; i < arrayMain.length; i++) {
+        var shape = arrayMain[i];
         var collideSide = this.getCollideSide(shape);
         if (collideSide !== Direction.NONE) {
-            if (shape instanceof BonusLife) {
-                shape.unDraw();
-                countBonusLife += 1;
-                TopbarHelper.animCountBonusLife();
-            } else if (shape instanceof BonusStar) {
-                shape.unDraw();
-                countBonusStar += 1;
-                TopbarHelper.animCountBonusStar();
-            } else if (shape instanceof MalusSnakeBlack) {
-                shape.unDraw();
-                countBonusLife -= 4;
-                countMalusSnakeBlack += 1;
-                TopbarHelper.animCountBonusLife();
-                TopbarHelper.animCountMalusSnakeBlack();
-            } else if (shape instanceof MalusSnakeRed) {
-                shape.unDraw();
-                countBonusLife -= 3;
-                countMalusSnakeRed += 1;
-                TopbarHelper.animCountBonusLife();
-                TopbarHelper.animCountMalusSnakeRed();
-            } else if (shape instanceof MalusSnakeGreen) {
-                shape.unDraw();
-                countBonusLife -= 2;
-                countMalusSnakeGreen += 1;
-                TopbarHelper.animCountBonusLife();
-                TopbarHelper.animCountMalusSnakeGreen();
-            } else if (shape instanceof DecoSea) {
+
+            if (shape instanceof DecoSea) {
                 countBonusLife = 0;
+                TopbarHelper.animCountBonusLife();
+            } else if (shape instanceof Star) {
+                shape.unDraw();
+                countStar += 1;
+            } else if (shape instanceof BonusMalus) {
+                shape.unDraw();
+                countBonusLife += shape.getLifeImpactAmount();
                 TopbarHelper.animCountBonusLife();
             } else if (shape instanceof ObstacleGround || shape instanceof ObstacleBox) {
                 if (collideSide & Direction.LEFT) {
@@ -63,11 +46,13 @@ Player.prototype.update = function () {
                         this.isMovingLeft = false;
                     }
                 }
+
                 if (collideSide & Direction.RIGHT) {
                     if (this.isMovingRight) {
                         this.isMovingRight = false;
                     }
                 }
+
                 if (collideSide & Direction.TOP) {
                     if (this.isMovingUp && !this.isMovingDown) {
                         this.setY(shape.y + shape.height);
@@ -75,6 +60,7 @@ Player.prototype.update = function () {
                         this.setJumping();
                     }
                 }
+
                 if (collideSide & Direction.BOTTOM) {
                     if (!this.isMovingUp && this.isMovingDown) {
                         this.setY(shape.y - this.height);
@@ -97,13 +83,12 @@ Player.prototype.update = function () {
     ////    coef = 5;
     ////}
 
-    // MOVING
     if (this.isMovingRight && this.corner2.x < 1000) {
         this.setX(this.x + coef);
-    }
-    if (this.isMovingLeft && this.corner1.x > 0) {
+    } else if (this.isMovingLeft && this.corner1.x > 0) {
         this.setX(this.x - coef);
     }
+
     if (this.isMovingUp || this.isMovingDown) {
         if (this.jumpStep < 0) {
             this.isMovingUp = false;
@@ -112,13 +97,15 @@ Player.prototype.update = function () {
             this.isMovingUp = true;
             this.isMovingDown = false;
         }
+
         this.setY(this.y - this.jumpStep);
         this.jumpStep -= gravity;
     }
+
     if (this.isWalking && canFall) {
         this.jumpStep = -1;
         this.setJumping();
     }
-    // DRAWING
-    this.draw();
+
+    this.drawImage();
 };

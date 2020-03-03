@@ -25,7 +25,7 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
     this.jumpStep = 15;
     this.direction = 0;
 
-    this.currentSpriteFrameIndex = 0;
+    this.currentSpriteIndex = 0;
     this.sprites = new Array(1);
     for (let i = 0; i < this.sprites.length; i++) {
         this.sprites[i] = i * 50;
@@ -127,30 +127,30 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
     };
 }
 
-Shape.prototype.draw = function () {
+Shape.prototype.drawImage = function () {
     if (this.isMovingRight) {
-        context.drawImage(this.imgRight, this.sprites[this.currentSpriteFrameIndex], 0, 60, 50, this.x, this.y, 60, 50);
-        this.currentSpriteFrameIndex++;
-        if (this.currentSpriteFrameIndex === this.sprites.length) {
-            this.currentSpriteFrameIndex = 0;
+        context.drawImage(this.imgRight, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
+        this.currentSpriteIndex++;
+        if (this.currentSpriteIndex === this.sprites.length) {
+            this.currentSpriteIndex = 0;
         }
     } else if (this.isMovingLeft) {
-        context.drawImage(this.imgLeft, this.sprites[this.currentSpriteFrameIndex], 0, 60, 50, this.x, this.y, 60, 50);
-        this.currentSpriteFrameIndex++;
-        if (this.currentSpriteFrameIndex === this.sprites.length) {
-            this.currentSpriteFrameIndex = 0;
+        context.drawImage(this.imgLeft, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
+        this.currentSpriteIndex++;
+        if (this.currentSpriteIndex === this.sprites.length) {
+            this.currentSpriteIndex = 0;
         }
     } else {
-        this.currentSpriteFrameIndex = 0;
+        this.currentSpriteIndex = 0;
         if (this.isFacingLeft) {
-            context.drawImage(this.imgLeft, this.sprites[this.currentSpriteFrameIndex], 0, 60, 50, this.x, this.y, 60, 50);
+            context.drawImage(this.imgLeft, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
         }
         if (this.isFacingRight) {
-            context.drawImage(this.imgRight, this.sprites[this.currentSpriteFrameIndex], 0, 60, 50, this.x, this.y, 60, 50);
+            context.drawImage(this.imgRight, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
         }
     }
 };
 
 Shape.prototype.update = function () {
-    this.draw();
+    this.drawImage();
 };

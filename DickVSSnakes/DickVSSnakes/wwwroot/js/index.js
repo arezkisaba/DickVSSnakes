@@ -7,11 +7,8 @@ var context = undefined;
 var intervalMain = undefined;
 var intervalChrono = undefined;
 var popupState = undefined;
-var countBonusLife = 10;
-var countBonusStar = undefined;
-var countMalusSnakeBlack = undefined;
-var countMalusSnakeRed = undefined;
-var countMalusSnakeGreen = undefined;
+var countBonusLife = undefined;
+var countStar = undefined;
 var currentLevel = 1;
 var initialTime = undefined;
 var gravity = undefined;
@@ -117,9 +114,7 @@ function getCurrentPlayer() {
     for (var i = 0; i < arrayMain.length; i++) {
         var player = arrayMain[i];
         if (player instanceof Player) {
-            if (player.name === $("#playerList").val()) {
-                return player;
-            }
+            return player;
         }
     }
 
@@ -139,11 +134,8 @@ function loadLevel(level) {
         levelUrl = 'level/level-' + level + '.txt';
         canvas = document.getElementById('canvasGame');
         context = canvas.getContext('2d');
-        //countBonusLife = 10;
-        countBonusStar = 0;
-        countMalusSnakeBlack = 0;
-        countMalusSnakeRed = 0;
-        countMalusSnakeGreen = 0;
+        countBonusLife = 10;
+        countStar = 0;
         initialTime = 0;
         gravity = 1;
         fps = 30;
@@ -155,37 +147,28 @@ function loadLevel(level) {
             url: levelUrl
         }).done(function (data) {
             var rows = data.split('\r\n');
-            for (var i = 0; i < rows.length; i++) {
-                var row = rows[i];
-                var cols = row.split(' ');
-                for (var j = 0; j < cols.length; j++) {
-                    var col = cols[j];
-                    switch (col) {
-                        case 'CCT': arrayMain.push(new Player(50 * j, 50 * i, 'player' + j)); break;
-                        case 'BLI': arrayMain.push(new BonusLife(50 * j, 50 * i)); break;
-                        case 'BST': arrayMain.push(new BonusStar(50 * j, 50 * i)); break;
-                        case 'DSE': arrayMain.push(new DecoSea(50 * j, 50 * i)); break;
-                        case 'MSB': arrayMain.push(new MalusSnakeBlack(50 * j, 50 * i)); break;
-                        case 'MSR': arrayMain.push(new MalusSnakeRed(50 * j, 50 * i)); break;
-                        case 'MSG': arrayMain.push(new MalusSnakeGreen(50 * j, 50 * i)); break;
-                        case 'OBO': arrayMain.push(new ObstacleBox(50 * j, 50 * i)); break;
-                        case 'OGR': arrayMain.push(new ObstacleGround(50 * j, 50 * i)); break;
+            for (var rowIndex = 0; rowIndex < rows.length; rowIndex++) {
+                var row = rows[rowIndex];
+                var columns = row.split(' ');
+                for (var columnIndex = 0; columnIndex < columns.length; columnIndex++) {
+                    var column = columns[columnIndex];
+                    switch (column) {
+                        case 'CCT': arrayMain.push(new Player(50 * columnIndex, 50 * rowIndex, 'player' + columnIndex)); break;
+                        case 'BLI': arrayMain.push(new BonusLife(50 * columnIndex, 50 * rowIndex)); break;
+                        case 'BST': arrayMain.push(new Star(50 * columnIndex, 50 * rowIndex)); break;
+                        case 'DSE': arrayMain.push(new DecoSea(50 * columnIndex, 50 * rowIndex)); break;
+                        case 'MSB': arrayMain.push(new MalusSnakeBlack(50 * columnIndex, 50 * rowIndex)); break;
+                        case 'MSR': arrayMain.push(new MalusSnakeRed(50 * columnIndex, 50 * rowIndex)); break;
+                        case 'MSG': arrayMain.push(new MalusSnakeGreen(50 * columnIndex, 50 * rowIndex)); break;
+                        case 'OBO': arrayMain.push(new ObstacleBox(50 * columnIndex, 50 * rowIndex)); break;
+                        case 'OGR': arrayMain.push(new ObstacleGround(50 * columnIndex, 50 * rowIndex)); break;
                         default: break;
                     }
                 }
             }
 
-            Chrono.updateCount();
             clearInterval(intervalMain);
             intervalMain = self.setInterval('intervalMainProc()', fps);
-
-            $('#playerList').empty();
-            for (var k = 0; k < arrayMain.length; k++) {
-                var player = arrayMain[k];
-                if (player instanceof Player) {
-                    $('#playerList').append('<option value="' + player.name + '">' + player.name + '</option>');
-                }
-            }
         });
     }
 }
@@ -198,10 +181,6 @@ function intervalMainProc() {
     context.drawImage(background, 0, 0, 1000, 600);
 
     TopbarHelper.updateCountBonusLife();
-    TopbarHelper.updateCountBonusStar();
-    TopbarHelper.updateCountMalusSnakeBlack();
-    TopbarHelper.updateCountMalusSnakeRed();
-    TopbarHelper.updateCountMalusSnakeGreen();
 
     for (let i = 0; i < arrayMain.length; i++) {
         var shape = arrayMain[i];
@@ -214,6 +193,6 @@ function intervalChronoProc() {
         clearInterval(intervalChrono);
     }
 
-    Chrono.updateCount();
-    Chrono.animCount();
+    ChronoHelper.updateCount();
+    ChronoHelper.animCount();
 }

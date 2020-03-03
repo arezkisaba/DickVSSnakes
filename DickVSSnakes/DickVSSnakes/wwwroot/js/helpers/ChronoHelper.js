@@ -1,8 +1,8 @@
 'use strict';
 
-function Chrono(x, y) {
+function ChronoHelper(x, y) {
 }
-Chrono.updateCount = function () {
+ChronoHelper.updateCount = function () {
     if (initialTime > 0) {
         $('#stat #chrono span').text((new Number(new Date().getTime()) - new Number(initialTime)) / 1000);
     } else {
@@ -10,7 +10,7 @@ Chrono.updateCount = function () {
     }
 };
 
-Chrono.animCount = function () {
+ChronoHelper.animCount = function () {
     if (initialTime > 0) {
         if ($('#stat #chrono img').attr('src') === 'img/menubar/chronoNormal.png') {
             $('#stat #chrono img').attr('src', 'img/menubar/chronoActive.png');

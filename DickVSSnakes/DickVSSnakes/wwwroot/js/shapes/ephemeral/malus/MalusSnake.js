@@ -1,10 +1,14 @@
 'use strict';
 
 function MalusSnake(imgPathLeft, imgPathRight, x, y) {
-    Shape.call(this, imgPathLeft, imgPathRight, x, y, 50, 50);
+    Malus.call(this, imgPathLeft, imgPathRight, x, y, 50, 50);
 }
 
-MalusSnake.prototype = Object.create(Shape.prototype);
+MalusSnake.prototype = Object.create(Malus.prototype);
+
+MalusSnake.prototype.getLifeImpactAmount = function () {
+    return 0;
+};
 
 MalusSnake.prototype.update = function () {
 
@@ -20,5 +24,5 @@ MalusSnake.prototype.update = function () {
         this.setX(this.x - 1);
     }
 
-    this.draw();
+    this.drawImage();
 };
