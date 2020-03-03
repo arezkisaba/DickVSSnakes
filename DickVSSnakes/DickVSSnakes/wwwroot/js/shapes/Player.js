@@ -31,15 +31,23 @@ Player.prototype.update = function () {
 
             if (shape instanceof DecoSea) {
                 countBonusLife = 0;
+                TopbarHelper.updateCountBonusLife();
                 TopbarHelper.animCountBonusLife();
             } else if (shape instanceof Star) {
                 shape.unDraw();
                 countStar += 1;
             } else if (shape instanceof BonusMalus) {
                 shape.unDraw();
-                countBonusLife += shape.getLifeImpactAmount();
-                TopbarHelper.updateCountBonusLife();
-                TopbarHelper.animCountBonusLife();
+
+                if (shape instanceof Malus && collideSide & Direction.BOTTOM) {
+                    this.jumpStep = 14;
+                    this.setJumping();
+                } else {
+                    countBonusLife += shape.getLifeImpactAmount();
+                    TopbarHelper.updateCountBonusLife();
+                    TopbarHelper.animCountBonusLife();
+                }
+
             } else if (shape instanceof ObstacleGround || shape instanceof ObstacleBox) {
                 if (collideSide & Direction.LEFT && this.isMovingLeft) {
                     this.isMovingLeft = false;
