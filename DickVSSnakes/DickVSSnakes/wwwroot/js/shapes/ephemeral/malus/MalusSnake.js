@@ -1,7 +1,7 @@
 'use strict';
 
 function MalusSnake(imgPathLeft, imgPathRight, x, y) {
-    Malus.call(this, imgPathLeft, imgPathRight, x, y, 50, 50);
+    Malus.call(this, imgPathLeft, imgPathRight, x, y, 50, 50, true);
 }
 
 MalusSnake.prototype = Object.create(Malus.prototype);

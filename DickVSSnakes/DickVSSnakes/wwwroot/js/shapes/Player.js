@@ -1,7 +1,7 @@
 'use strict';
 
 function Player(i, y) {
-    Shape.call(this, 'img/shapes/player/playerLeft.png', 'img/shapes/player/playerRight.png', i, y, 60, 50);
+    Shape.call(this, 'img/shapes/player/playerLeft.png', 'img/shapes/player/playerRight.png', i, y, 60, 50, true);
 
     this.currentSpriteFrameIndex = 0;
     this.sprites = new Array(9);
@@ -28,7 +28,6 @@ Player.prototype.update = function () {
         var shape = arrayMain[i];
         var collideSide = this.getCollideSide(shape);
         if (collideSide !== Direction.NONE) {
-
             if (shape instanceof DecoSea) {
                 countBonusLife = 0;
                 TopbarHelper.updateCountBonusLife();
@@ -47,7 +46,6 @@ Player.prototype.update = function () {
                     TopbarHelper.updateCountBonusLife();
                     TopbarHelper.animCountBonusLife();
                 }
-
             } else if (shape instanceof ObstacleGround || shape instanceof ObstacleBox) {
                 if (collideSide & Direction.LEFT && this.isMovingLeft) {
                     this.isMovingLeft = false;

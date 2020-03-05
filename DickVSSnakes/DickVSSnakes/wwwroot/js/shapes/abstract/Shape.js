@@ -1,6 +1,6 @@
 'use strict';
 
-function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
+function Shape(imgPathLeft, imgPathRight, x, y, width, height, isMovable) {
     this.imgLeft = new Image();
     this.imgLeft.src = imgPathLeft;
     this.imgRight = new Image();
@@ -11,6 +11,7 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height) {
     this.y = y;
     this.width = width;
     this.height = height;
+    this.isMovable = isMovable;
     this.isFacingLeft = false;
     this.isFacingRight = true;
     this.isMovingLeft = false;
