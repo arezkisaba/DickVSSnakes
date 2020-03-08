@@ -24,7 +24,9 @@ Player.prototype.update = function () {
     ////    loop = false;
     ////}
 
-    for (var i = 0; i < arrayMain.length; i++) {
+    var start = 0;
+    var length = arrayMain.length;
+    for (var i = start; i < length; i++) {
         var shape = arrayMain[i];
         var collideSide = this.getCollideSide(shape);
         if (collideSide !== Direction.NONE) {

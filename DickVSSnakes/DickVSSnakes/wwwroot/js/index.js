@@ -8,7 +8,7 @@ var popupState = undefined;
 var countBonusLife = undefined;
 var countStar = undefined;
 var currentLevel = 1;
-var initialTime = undefined;
+var initialTime = 0;
 var gravity = undefined;
 var fps = 30;
 var loop = undefined;
@@ -54,9 +54,11 @@ $('body').live('keydown', function (e) {
         player.jumpStep = 14;
         player.setJumping();
         canStart = true;
-    } else if (initialTime === 0 && canStart) {
-        initialTime = new Number(new Date().getTime());
-        intervalChrono = self.setInterval('intervalChronoProc()', 500);
+    }
+
+    if (initialTime === 0 && canStart) {
+        initialTime = new Date().getTime();
+        intervalChrono = self.setInterval('intervalChronoProc()', 100);
     }
 });
 
@@ -113,7 +115,9 @@ $('body').live('endOfGameEvent', function () {
 });
 
 function getCurrentPlayer() {
-    for (var i = 0; i < arrayMain.length; i++) {
+    var start = 0;
+    var length = arrayMain.length;
+    for (var i = start; i < length; i++) {
         var player = arrayMain[i];
         if (player instanceof Player) {
             return player;
@@ -146,35 +150,16 @@ function loadLevel(level) {
                     for (var columnIndex = 0; columnIndex < columns.length; columnIndex++) {
                         var column = columns[columnIndex];
                         switch (column) {
-                            case 'CCT':
-                                arrayMain.push(new Player(50 * columnIndex, 50 * rowIndex));
-                                break;
-                            case 'BST':
-                                arrayMain.push(new Star(50 * columnIndex, 50 * rowIndex));
-                                break;
-                            case 'BLI':
-                                arrayMain.push(new BonusLife(50 * columnIndex, 50 * rowIndex));
-                                break;
-                            case 'DSE':
-                                arrayMain.push(new DecoSea(50 * columnIndex, 50 * rowIndex));
-                                break;
-                            case 'MSB':
-                                arrayMain.push(new MalusSnakeBlack(50 * columnIndex, 50 * rowIndex));
-                                break;
-                            case 'MSR':
-                                arrayMain.push(new MalusSnakeRed(50 * columnIndex, 50 * rowIndex));
-                                break;
-                            case 'MSG':
-                                arrayMain.push(new MalusSnakeGreen(50 * columnIndex, 50 * rowIndex));
-                                break;
-                            case 'OBO':
-                                arrayMain.push(new ObstacleBox(50 * columnIndex, 50 * rowIndex));
-                                break;
-                            case 'OGR':
-                                arrayMain.push(new ObstacleGround(50 * columnIndex, 50 * rowIndex));
-                                break;
-                            default:
-                                break;
+                            case 'CCT': arrayMain.push(new Player(50 * columnIndex, 50 * rowIndex)); break;
+                            case 'BST': arrayMain.push(new Star(50 * columnIndex, 50 * rowIndex)); break;
+                            case 'BLI': arrayMain.push(new BonusLife(50 * columnIndex, 50 * rowIndex)); break;
+                            case 'DSE': arrayMain.push(new DecoSea(50 * columnIndex, 50 * rowIndex)); break;
+                            case 'MSB': arrayMain.push(new MalusSnakeBlack(50 * columnIndex, 50 * rowIndex)); break;
+                            case 'MSR': arrayMain.push(new MalusSnakeRed(50 * columnIndex, 50 * rowIndex)); break;
+                            case 'MSG': arrayMain.push(new MalusSnakeGreen(50 * columnIndex, 50 * rowIndex)); break;
+                            case 'OBO': arrayMain.push(new ObstacleBox(50 * columnIndex, 50 * rowIndex)); break;
+                            case 'OGR': arrayMain.push(new ObstacleGround(50 * columnIndex, 50 * rowIndex)); break;
+                            default: break;
                         }
                     }
                 }
@@ -192,7 +177,10 @@ function intervalMainProc() {
     }
 
     $context.drawImage(background, 0, 0, 1000, 600);
-    for (let i = 0; i < arrayMain.length; i++) {
+
+    var start = 0;
+    var length = arrayMain.length;
+    for (var i = start; i < length; i++) {
         var shape = arrayMain[i];
         shape.update();
     }
@@ -204,5 +192,4 @@ function intervalChronoProc() {
     }
 
     ChronoHelper.updateCount();
-    ChronoHelper.animCount();
 }
