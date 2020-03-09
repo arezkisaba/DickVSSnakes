@@ -49,12 +49,12 @@ Player.prototype.update = function () {
                     TopbarHelper.animCountBonusLife();
                 }
             } else if (shape instanceof ObstacleGround || shape instanceof ObstacleBox) {
-                if (collideSide & Direction.LEFT && this.isMovingLeft) {
-                    this.isMovingLeft = false;
+                if (collideSide & Direction.LEFT && this.direction === Direction.LEFT) {
+                    this.direction = Direction.NONE;
                 }
 
-                if (collideSide & Direction.RIGHT && this.isMovingRight) {
-                    this.isMovingRight = false;
+                if (collideSide & Direction.RIGHT && this.direction === Direction.RIGHT) {
+                    this.direction = Direction.NONE;
                 }
 
                 if (collideSide & Direction.TOP && this.isMovingUp && !this.isMovingDown) {
@@ -78,13 +78,17 @@ Player.prototype.update = function () {
         }
     }
 
+    console.log(this.direction);
+
     var coef = 10;
-    if (this.isMovingRight && this.corner2.x < 1000) {
+    if (this.direction === Direction.RIGHT && this.corner2.x < 1000) {
         this.setX(this.x + coef);
-        this.direction = Direction.RIGHT;
-    } else if (this.isMovingLeft && this.corner1.x > 0) {
+        this.lastDirection = Direction.RIGHT;
+        this.direction = this.lastDirection;
+    } else if (this.direction === Direction.LEFT && this.corner1.x > 0) {
         this.setX(this.x - coef);
-        this.direction = Direction.LEFT;
+        this.lastDirection = Direction.LEFT;
+        this.direction = this.lastDirection;
     } else {
         this.direction = Direction.NONE;
     }

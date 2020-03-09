@@ -12,15 +12,15 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height, isMovable) {
     this.width = width;
     this.height = height;
     this.isMovable = isMovable;
-    this.isMovingLeft = false;
-    this.isMovingRight = false;
     this.isMovingUp = false;
     this.isMovingDown = false;
     this.isWalking = true;
     this.jumpStep = 15;
+    this.lastDirection = Direction.NONE;
     this.direction = Direction.NONE;
     this.currentSpriteIndex = 0;
     this.sprites = new Array(1);
+    this.hasDrawnAtLeastOneTime = false;
 
     for (let i = 0; i < this.sprites.length; i++) {
         this.sprites[i] = i * 50;
@@ -120,7 +120,12 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height, isMovable) {
 Shape.prototype.drawImage = function () {
 
     if (this.direction === Direction.NONE) {
-        $gameContext.drawImage(this.imgRight, this.sprites[0], 0, 60, 50, this.x, this.y, 60, 50);
+        var img = this.imgRight;
+        if (this.lastDirection === Direction.LEFT) {
+            img = this.imgLeft;
+        }
+
+        $gameContext.drawImage(img, this.sprites[0], 0, 60, 50, this.x, this.y, 60, 50);
     } else if (this.direction === Direction.RIGHT) {
         $gameContext.drawImage(this.imgRight, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
         this.currentSpriteIndex++;
@@ -134,6 +139,8 @@ Shape.prototype.drawImage = function () {
             this.currentSpriteIndex = 0;
         }
     }
+
+    this.hasDrawnAtLeastOneTime = true;
 };
 
 Shape.prototype.update = function () {

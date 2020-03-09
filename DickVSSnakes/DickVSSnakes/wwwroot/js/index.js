@@ -40,11 +40,11 @@ $('body').live('keydown', function (e) {
         if (popupState === PopupState.ENDOFGAME) {
             $.colorbox.close();
         }
-    } else if ((keyCode === 37 || keyCode === 81) && !player.isMovingRight && !player.isMovingLeft) {
-        player.isMovingLeft = true;
+    } else if (keyCode === 37 || keyCode === 81) {
+        player.direction = Direction.LEFT;
         canStart = true;
-    } else if ((keyCode === 39 || keyCode === 68) && !player.isMovingLeft && !player.isMovingRight) {
-        player.isMovingRight = true;
+    } else if (keyCode === 39 || keyCode === 68) {
+        player.direction = Direction.RIGHT;
         canStart = true;
     } else if (keyCode === 32 && !player.isMovingUp && !player.isMovingDown) {
         player.jumpStep = 14;
@@ -62,9 +62,9 @@ $('body').live('keyup', function (e) {
     var player = getCurrentPlayer();
     var keyCode = e.keyCode;
     if (keyCode === 37 || keyCode === 81) {
-        player.isMovingLeft = false;
+        player.direction = Direction.NONE;
     } else if (keyCode === 39 || keyCode === 68) {
-        player.isMovingRight = false;
+        player.direction = Direction.NONE;
     }
 });
 
