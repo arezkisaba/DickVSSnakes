@@ -12,15 +12,13 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height, isMovable) {
     this.width = width;
     this.height = height;
     this.isMovable = isMovable;
-    this.isFacingLeft = false;
-    this.isFacingRight = true;
     this.isMovingLeft = false;
     this.isMovingRight = false;
     this.isMovingUp = false;
     this.isMovingDown = false;
     this.isWalking = true;
     this.jumpStep = 15;
-    this.direction = 0;
+    this.direction = Direction.NONE;
     this.currentSpriteIndex = 0;
     this.sprites = new Array(1);
 
@@ -50,11 +48,9 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height, isMovable) {
 
     this.setX = function (x) {
         if (this.x < x) {
-            this.isFacingLeft = false;
-            this.isFacingRight = true;
+            this.Direction = Direction.RIGHT;
         } else {
-            this.isFacingLeft = true;
-            this.isFacingRight = false;
+            this.Direction = Direction.LEFT;
         }
 
         this.x = x;
@@ -122,24 +118,20 @@ function Shape(imgPathLeft, imgPathRight, x, y, width, height, isMovable) {
 }
 
 Shape.prototype.drawImage = function () {
-    if (this.isMovingRight) {
-        $context.drawImage(this.imgRight, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
+
+    if (this.direction === Direction.NONE) {
+        $gameContext.drawImage(this.imgRight, this.sprites[0], 0, 60, 50, this.x, this.y, 60, 50);
+    } else if (this.direction === Direction.RIGHT) {
+        $gameContext.drawImage(this.imgRight, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
         this.currentSpriteIndex++;
         if (this.currentSpriteIndex === this.sprites.length) {
             this.currentSpriteIndex = 0;
         }
-    } else if (this.isMovingLeft) {
-        $context.drawImage(this.imgLeft, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
+    } else if (this.direction === Direction.LEFT) {
+        $gameContext.drawImage(this.imgLeft, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
         this.currentSpriteIndex++;
         if (this.currentSpriteIndex === this.sprites.length) {
             this.currentSpriteIndex = 0;
-        }
-    } else {
-        this.currentSpriteIndex = 0;
-        if (this.isFacingLeft) {
-            $context.drawImage(this.imgLeft, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
-        } else if (this.isFacingRight) {
-            $context.drawImage(this.imgRight, this.sprites[this.currentSpriteIndex], 0, 60, 50, this.x, this.y, 60, 50);
         }
     }
 };

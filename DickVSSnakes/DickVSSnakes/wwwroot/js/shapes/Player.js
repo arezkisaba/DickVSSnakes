@@ -81,8 +81,12 @@ Player.prototype.update = function () {
     var coef = 10;
     if (this.isMovingRight && this.corner2.x < 1000) {
         this.setX(this.x + coef);
+        this.direction = Direction.RIGHT;
     } else if (this.isMovingLeft && this.corner1.x > 0) {
         this.setX(this.x - coef);
+        this.direction = Direction.LEFT;
+    } else {
+        this.direction = Direction.NONE;
     }
 
     if (this.isMovingUp || this.isMovingDown) {

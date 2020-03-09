@@ -1,7 +1,7 @@
 'use strict';
 
-var $canvas = undefined;
-var $context = undefined;
+var $gameCanvas = undefined;
+var $gameContext = undefined;
 var intervalMain = undefined;
 var intervalChrono = undefined;
 var popupState = undefined;
@@ -12,21 +12,17 @@ var initialTime = 0;
 var gravity = undefined;
 var fps = 30;
 var loop = undefined;
-var background = undefined;
 var arrayMain = undefined;
 
 $(document).ready(function () {
-    background = new Image();
-    background.src = 'img/background/background-01.png';
-    $canvas = $('#canvasGame');
-    $context = $canvas[0].getContext('2d');
+    $gameCanvas = $('#gameCanvas');
+    $gameContext = $gameCanvas[0].getContext('2d');
     loadLevel(currentLevel);
 });
 
 $('body').live('keydown', function (e) {
     var canStart = false;
     var keyCode = e.keyCode;
-
     var player = getCurrentPlayer();
 
     if (keyCode === 13) {
@@ -176,13 +172,15 @@ function intervalMainProc() {
         clearInterval(intervalMain);
     }
 
-    $context.drawImage(background, 0, 0, 1000, 600);
+    $gameContext.clearRect(0, 0, 1000, 600);
 
     var start = 0;
     var length = arrayMain.length;
     for (var i = start; i < length; i++) {
         var shape = arrayMain[i];
-        shape.update();
+        if (shape instanceof Shape) {
+            shape.update();
+        }
     }
 }
 
