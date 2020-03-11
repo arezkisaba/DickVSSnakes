@@ -78,8 +78,6 @@ Player.prototype.update = function () {
         }
     }
 
-    console.log(this.direction);
-
     var coef = 10;
     if (this.direction === Direction.RIGHT && this.corner2.x < 1000) {
         this.setX(this.x + coef);
