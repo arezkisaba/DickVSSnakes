@@ -13,8 +13,4 @@
     <None Include="wwwroot\popups\popupYouWon.html" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ApiControllers\" />
-  </ItemGroup>
-
 </Project>
