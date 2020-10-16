@@ -15,6 +15,7 @@ variables:
   buildConfiguration: 'Debug'
   appxPackageDir: '$(Build.ArtifactStagingDirectory)/AppxPackages'
   webPackageDir: '$(Build.ArtifactStagingDirectory)/WebPackages'
+  nugetPackageDir: '$(Build.ArtifactStagingDirectory)/NugetPackages'
 
 steps:
 
@@ -23,7 +24,7 @@ steps:
   displayName: Github Sync
   inputs:
     targetType: 'inline'
-    script: 'git push https://$(GithubUsername):$(GithubPassword)@github.com/arezkisaba/BabylonTools.git HEAD:master'
+    script: 'git push https://$(GithubUsername):$(GithubPassword)@github.com/arezkisaba/DickVSSnakes.git HEAD:master'
 
 - task: NuGetToolInstaller@1
   enabled: true
@@ -51,30 +52,12 @@ steps:
 
 - task: DotNetCoreCLI@2
   enabled: true
-  displayName: Dotnet publish on [BabylonTools.NSGSync]
+  displayName: Dotnet publish on [DickVSSnakes]
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: '$(Build.SourcesDirectory)/BabylonTools/BabylonTools.NSGSync/*.csproj'
-    arguments: '-c Debug -o $(webPackageDir) -r "win-x86" --self-contained true'
-
-- task: DotNetCoreCLI@2
-  enabled: true
-  displayName: Dotnet publish on [BabylonTools.Sherlock]
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: '$(Build.SourcesDirectory)/BabylonTools/BabylonTools.Sherlock/*.csproj'
-    arguments: '-c Debug -o $(webPackageDir) -r "win-x86" --self-contained true'
-
-- task: DotNetCoreCLI@2
-  enabled: true
-  displayName: Dotnet publish on [BabylonTools.XMap]
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: '$(Build.SourcesDirectory)/BabylonTools/BabylonTools.XMap/*.csproj'
-    arguments: '-c Debug -o $(webPackageDir) -r "win-x86" --self-contained true'
+    projects: '$(Build.SourcesDirectory)/DickVSSnakes/DickVSSnakes/*.csproj'
+    arguments: '-c Debug -o $(webPackageDir)'
 
 - task: PublishBuildArtifacts@1
   enabled: true
