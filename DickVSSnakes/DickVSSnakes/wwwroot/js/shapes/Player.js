@@ -14,15 +14,6 @@ Player.prototype = Object.create(Shape.prototype);
 
 Player.prototype.update = function () {
     var canFall = true;
-    if (countBonusLife <= 0) {
-        countBonusLife = 0;
-        $('body').trigger('youLoseEvent');
-        loop = false;
-    }
-    ////if (countStar === Star.findAll().length) {
-    ////    $('body').trigger('youWonEvent');
-    ////    loop = false;
-    ////}
 
     var start = 0;
     var length = arrayMain.length;
@@ -30,14 +21,24 @@ Player.prototype.update = function () {
         var shape = arrayMain[i];
         var collideSide = this.getCollideSide(shape);
         if (collideSide !== Direction.NONE) {
+            if (shape instanceof Star) {
+                shape.unDraw();
+                countStar += 1;
+                sendYouWinEventIfNecessary();
+            }
+
             if (shape instanceof DecoSea) {
                 countBonusLife = 0;
                 TopbarHelper.updateCountBonusLife();
                 TopbarHelper.animCountBonusLife();
-            } else if (shape instanceof Star) {
-                shape.unDraw();
-                countStar += 1;
-            } else if (shape instanceof BonusMalus) {
+                sendYouLoseEventIfNecessary();
+            }
+
+            if (shape instanceof Malus) {
+                sendYouLoseEventIfNecessary();
+            }
+
+            if (shape instanceof BonusMalus) {
                 shape.unDraw();
 
                 if (shape instanceof Malus && collideSide & Direction.BOTTOM) {
@@ -48,7 +49,9 @@ Player.prototype.update = function () {
                     TopbarHelper.updateCountBonusLife();
                     TopbarHelper.animCountBonusLife();
                 }
-            } else if (shape instanceof ObstacleGround || shape instanceof ObstacleBox) {
+            }
+
+            if (shape instanceof ObstacleGround || shape instanceof ObstacleBox) {
                 if (collideSide & Direction.LEFT && this.direction === Direction.LEFT) {
                     this.direction = Direction.NONE;
                 }
@@ -111,3 +114,18 @@ Player.prototype.update = function () {
 
     this.drawImage();
 };
+
+function sendYouLoseEventIfNecessary() {
+    if (countBonusLife <= 0) {
+        countBonusLife = 0;
+        loop = false;
+        $('body').trigger('youLoseEvent');
+    }
+}
+
+function sendYouWinEventIfNecessary() {
+    if (countStar === arrayMain.filter(obj => obj instanceof Star).length) {
+        loop = false;
+        $('body').trigger('youWonEvent');
+    }
+}

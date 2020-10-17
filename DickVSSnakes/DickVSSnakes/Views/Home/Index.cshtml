@@ -8,56 +8,6 @@
     <meta charset='utf-8'>
     <title>Dick VS Snakes</title>
 
-    <link href='/css/index.css' rel='stylesheet' type='text/css' media='screen' />
-
-    <!-- Libs -->
-    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-    <script src='/lib/jquery/jquery.js'></script>
-    <script src='/lib/jquery.colorbox/jquery.colorbox.js'></script>
-
-    <script src='/js/index.js'></script>
-
-    <!-- Enums -->
-    <script src='~/js/enums/Direction.js'></script>
-    <script src='~/js/enums/PopupState.js'></script>
-
-    <!-- Geometry -->
-    <script src='~/js/geometry/Point.js'></script>
-
-    <!-- Abstract -->
-    <script src='~/js/shapes/abstract/Shape.js'></script>
-
-    <!-- Deco -->
-    <script src='~/js/shapes/deco/DecoSea.js'></script>
-
-    <!-- Ephemeral -->
-    <script src='~/js/shapes/ephemeral/BonusMalus.js'></script>
-    <script src='~/js/shapes/ephemeral/Star.js'></script>
-    <script src='~/js/shapes/ephemeral/bonus/Bonus.js'></script>
-    <script src='~/js/shapes/ephemeral/bonus/BonusLife.js'></script>
-    <script src='~/js/shapes/ephemeral/malus/Malus.js'></script>
-    <script src='~/js/shapes/ephemeral/malus/MalusSnake.js'></script>
-    <script src='~/js/shapes/ephemeral/malus/MalusSnakeBlack.js'></script>
-    <script src='~/js/shapes/ephemeral/malus/MalusSnakeGreen.js'></script>
-    <script src='~/js/shapes/ephemeral/malus/MalusSnakeRed.js'></script>
-
-    <!-- Obstacles -->
-    <script src='~/js/shapes/obstacles/ObstacleBox.js'></script>
-    <script src='~/js/shapes/obstacles/ObstacleGround.js'></script>
-
-    <!-- Player -->
-    <script src='~/js/shapes/Player.js'></script>
-
-    <!-- Helpers -->
-    <script src='/js/helpers/ChronoHelper.js'></script>
-    <script src='/js/helpers/TopbarHelper.js'></script>
-
-    @*<script src='/js/_tests/object.js'></script>
-        <script src='/js/_tests/scope.js'></script>
-        <script src='/js/_tests/strictMode.js'></script>
-        <script src='/js/_tests/this.js'></script>*@
-
 </head>
 <body>
     <div>
@@ -84,7 +34,64 @@
             </table>
         </div>
         <div id='canvasContainer'>
-            <canvas id='gameCanvas' width='1000' height='600'  />
+            <canvas id='gameCanvas' width='1000' height='600' />
+        </div>
+    </div>
+    <div id="youLoseModal" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    You lose :(
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Play again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="youWinModal" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    You win :)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="gameFinishedModal" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    You win, game finished ! :)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Play again</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>

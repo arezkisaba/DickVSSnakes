@@ -4,8 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - DickVSSnakes</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+
+    <link href='~/css/game.css' rel='stylesheet' type='text/css' media='screen' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
     <header>
@@ -19,11 +20,11 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>*@
                     </ul>
                 </div>
             </div>
@@ -34,15 +35,42 @@
             @RenderBody()
         </main>
     </div>
-
     @*<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - DickVSSnakes - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+            <div class="container">
+                &copy; 2020 - DickVSSnakes - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>*@
+
+    <!-- Libs -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <script src='~/js/game.js'></script>
+    <script src='~/js/enums/Direction.js'></script>
+    <script src='~/js/enums/GameEvent.js'></script>
+    <script src='~/js/enums/PopupState.js'></script>
+    <script src='~/js/geometry/Point.js'></script>
+    <script src='~/js/shapes/abstract/Shape.js'></script>
+    <script src='~/js/shapes/deco/DecoSea.js'></script>
+    <script src='~/js/shapes/ephemeral/BonusMalus.js'></script>
+    <script src='~/js/shapes/ephemeral/Star.js'></script>
+    <script src='~/js/shapes/ephemeral/bonus/Bonus.js'></script>
+    <script src='~/js/shapes/ephemeral/bonus/BonusLife.js'></script>
+    <script src='~/js/shapes/ephemeral/malus/Malus.js'></script>
+    <script src='~/js/shapes/ephemeral/malus/MalusSnake.js'></script>
+    <script src='~/js/shapes/ephemeral/malus/MalusSnakeBlack.js'></script>
+    <script src='~/js/shapes/ephemeral/malus/MalusSnakeGreen.js'></script>
+    <script src='~/js/shapes/ephemeral/malus/MalusSnakeRed.js'></script>
+    <script src='~/js/shapes/obstacles/ObstacleBox.js'></script>
+    <script src='~/js/shapes/obstacles/ObstacleGround.js'></script>
+    <script src='~/js/shapes/Player.js'></script>
+    <script src='~/js/helpers/ChronoHelper.js'></script>
+    <script src='~/js/helpers/TopbarHelper.js'></script>
+
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

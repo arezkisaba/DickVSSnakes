@@ -20,7 +20,7 @@ $(document).ready(function () {
     loadLevel(currentLevel);
 });
 
-$('body').live('keydown', function (e) {
+$('body').on('keydown', function (e) {
     var canStart = false;
     var keyCode = e.keyCode;
     var player = getCurrentPlayer();
@@ -58,7 +58,7 @@ $('body').live('keydown', function (e) {
     }
 });
 
-$('body').live('keyup', function (e) {
+$('body').on('keyup', function (e) {
     var player = getCurrentPlayer();
     var keyCode = e.keyCode;
     if (keyCode === 37 || keyCode === 81) {
@@ -68,46 +68,39 @@ $('body').live('keyup', function (e) {
     }
 });
 
-$('body').live('youLoseEvent', function () {
+$('body').on('youLoseEvent', function () {
     popupState = PopupState.YOULOSE;
-    self.setTimeout(function () {
-        $.colorbox({
-            href: 'popups/popupYouLose.html',
-            close: '',
-            onComplete: function () {
-                $('#popupYouLose').focus();
-            }
-        });
-    }, 500);
+    $("#youLoseModal").modal({
+        backdrop: 'static',
+        keyboard: false
+    });
 });
 
-$('body').live('youWonEvent', function () {
+$('body').on('youWonEvent', function () {
     popupState = PopupState.YOUWON;
-    self.setTimeout(function () {
-        $.colorbox({
-            href: 'popups/popupYouWon.html',
-            close: '',
-            onComplete: function () {
-                $('#popupYouWon').focus();
-            }
-        });
-    }, 500);
+    $("#youWinModal").modal({
+        backdrop: 'static',
+        keyboard: false
+    });
 });
 
-$('body').live('endOfGameEvent', function () {
+$('body').on('endOfGameEvent', function () {
     popupState = PopupState.ENDOFGAME;
-    self.setTimeout(function () {
-        $.colorbox({
-            href: 'popups/popupEndOfGame.html',
-            close: '',
-            onComplete: function () {
-                $('#popupEndOfGame').focus();
-            },
-            onClosed: function () {
-                document.location.reload();
-            }
-        });
-    }, 500);
+    $("#gameFinishedModal").modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+});
+
+$('#youLoseModal .btn-primary, #gameFinishedModal .btn-primary').on('click', function () {
+    currentLevel = 1;
+    countBonusLife = 10;
+    loadLevel(currentLevel);
+});
+
+$('#youWinModal .btn-primary').on('click', function () {
+    currentLevel += 1;
+    loadLevel(currentLevel);
 });
 
 function getCurrentPlayer() {
